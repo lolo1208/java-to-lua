@@ -201,6 +201,22 @@ public class LuaState {
     }
 
 
+    /**
+     * 获取 lua 传来的参数值
+     * index 从 1 开始
+     */
+    public String getString(int idx) {
+        return ToLua.tostring(L, idx);
+    }
+
+    public boolean getBoolean(int idx) {
+        return ToLua.toboolean(L, idx);
+    }
+
+    public double getNumber(int idx) {
+        return ToLua.tonumber(L, idx);
+    }
+
     //
 
     //

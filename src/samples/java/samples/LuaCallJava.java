@@ -2,7 +2,6 @@ package samples;
 
 import com.sun.jna.Pointer;
 import shibaInu.tolua.LuaState;
-import shibaInu.tolua.ToLua;
 
 
 /**
@@ -72,19 +71,20 @@ public class LuaCallJava {
      * 已知参数类型的函数
      */
     private int test_say(Pointer L) {
-        String arg1 = ToLua.tostring(L, 1);// 参数 index 从 1 开始
-        double arg2 = ToLua.tonumber(L, 2);
-        int arg3 = (int) ToLua.tonumber(L, 3);
-        boolean arg4 = ToLua.toboolean(L, 4);
+        String arg1 = state.getString(1);// 参数 index 从 1 开始
+        double arg2 = state.getNumber(2);
+        int arg3 = (int) state.getNumber(3);
+        boolean arg4 = state.getBoolean(4);
         System.out.printf("test_say: %s, %f, %d, %b %n", arg1, arg2, arg3, arg4);
 
         // 函数没有返回值时，return 0
 //        return 0;
 
         // 函数有返回值时，push() 返回值，并 return 1
-        ToLua.pushstring(L, "OK!!");
+        state.push("OK!!!");
         return 1;
     }
+
 
     //
 }

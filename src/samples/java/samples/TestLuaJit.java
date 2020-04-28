@@ -2,7 +2,6 @@ package samples;
 
 import com.sun.jna.Pointer;
 import shibaInu.tolua.LuaState;
-import shibaInu.tolua.ToLua;
 
 
 /**
@@ -11,9 +10,11 @@ import shibaInu.tolua.ToLua;
  */
 public class TestLuaJit {
 
+    private LuaState state;
+
     public void run() {
 
-        LuaState state = new LuaState();
+        state = new LuaState();
         state.addCallback("getTime", this::getTime);
         System.out.println();
 
@@ -42,7 +43,7 @@ public class TestLuaJit {
 
     // lua global function getTime()
     private int getTime(Pointer L) {
-        ToLua.pushnumber(L, (int) System.currentTimeMillis());
+        state.push((int) System.currentTimeMillis());
         return 1;
     }
 
