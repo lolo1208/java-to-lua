@@ -24,6 +24,7 @@ public class LuaState {
         return stateList.get(L);
     }
 
+
     // jit opt
     private static final String JIT_OPT = "" +
             " if jit then " +
@@ -32,6 +33,12 @@ public class LuaState {
             "     end " +
             "     print('ver' .. jit.version_num .. ' jit: ', jit.status()) " +
             "     print(string.format('os: %s, arch: %s', jit.os, jit.arch)) " +
+            " end ";
+
+    private static final String JIT_CLOSE = "" +
+            " if jit then " +
+            "     jit.off() " +
+            "     jit.flush() " +
             " end ";
 
 
@@ -202,7 +209,7 @@ public class LuaState {
      * 关闭 jit
      */
     public void closeJIT() {
-        doString(" if jit then jit.off() jit.flush() end");
+        doString(JIT_CLOSE);
     }
 
 
