@@ -13,7 +13,7 @@ local function Main()
     tab.Test2("xyz", 456)
 
     print(aaa.sss)
-    print("不会执行到这句")
+    print("上面那句会报错，不会执行到这句！")
 end
 
 
