@@ -18,7 +18,7 @@ public class LuaFileLoader {
 
 
     // lua 文件目录列表
-    public String[] dirs = {"./", "./samples/lua/"};
+    public String[] dirs = {"./", "./lua/"};
     // 已缓存的文件数据列表
     private Hashtable<String, byte[]> cache = new Hashtable<>();
 
@@ -33,8 +33,8 @@ public class LuaFileLoader {
             return cache.get(path);
 
         String luaPath = path.replace(".", "/") + ".lua";
-        for (int i = 0; i < dirs.length; i++) {
-            File file = new File(dirs[i] + luaPath);
+        for (String dir : dirs) {
+            File file = new File(dir + luaPath);
             if (file.exists()) {
                 try {
                     FileInputStream input = new FileInputStream(file);
