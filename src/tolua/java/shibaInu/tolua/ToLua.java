@@ -29,6 +29,7 @@ public class ToLua {
     // static
     public static String[] LUA_TYPE_NAME = {"nil", "boolean", "lightuserdata", "number", "string", "table", "function", "userdata", "thread"};
     public static int LUA_MULTRET = -1;
+    public static int LUA_REGISTRYINDEX = -10000;
     public static int LUA_GLOBALSINDEX = -10002;
 
 
@@ -132,6 +133,18 @@ public class ToLua {
     public static void pushnumber(Pointer L, double value) {
         ToLuaLib.INSTANCE.lua_pushnumber(L, value);
     }
+
+
+    //
+    // luaopen
+    public static int luaopen_cjson(Pointer L) {
+        return ToLuaLib.INSTANCE.luaopen_cjson(L);
+    }
+
+    public static int luaopen_cjson_safe(Pointer L) {
+        return ToLuaLib.INSTANCE.luaopen_cjson_safe(L);
+    }
+
 
 
     //

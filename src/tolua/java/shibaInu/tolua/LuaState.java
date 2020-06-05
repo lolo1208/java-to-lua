@@ -76,6 +76,13 @@ public class LuaState {
         ToLua.rawseti(L, -2, 2);
         ToLua.pop(L, 2);
 
+        // cjson 比较特殊，只 new 了一个 table，没有注册库，这里注册一下
+        ToLua.getfield(L, ToLua.LUA_REGISTRYINDEX, "_LOADED");
+        ToLua.luaopen_cjson(L);
+        ToLua.setfield(L, -2, "cjson");
+        ToLua.luaopen_cjson_safe(L);
+        ToLua.setfield(L, -2, "cjson.safe");
+
         // top->0
         ToLua.settop(L, 0);
 

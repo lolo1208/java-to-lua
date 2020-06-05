@@ -58,6 +58,12 @@ public interface ToLuaLib extends Library {
 
 
     //
+    int luaopen_cjson(Pointer L);
+
+    int luaopen_cjson_safe(Pointer L);
+
+
+    //
     int tolua_loadbuffer(Pointer L, byte[] buff, int sz, String name);
 
     void tolua_openlibs(Pointer L);
