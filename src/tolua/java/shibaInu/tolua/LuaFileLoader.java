@@ -12,7 +12,6 @@ import java.util.Hashtable;
  */
 public class LuaFileLoader {
 
-
     // 全局实例
     public static LuaFileLoader instance = new LuaFileLoader();
 
@@ -24,6 +23,14 @@ public class LuaFileLoader {
 
 
     /**
+     * 获取格式化后的 lua 文件路径
+     */
+    public String getLuaPath(String path) {
+        return path.replace(".", "/") + ".lua";
+    }
+
+
+    /**
      * 加载并返回 lua 文件字节数据
      *
      * @param path lua 文件相对路径，不含 ".lua" 后缀
@@ -32,7 +39,7 @@ public class LuaFileLoader {
         if (cache.containsKey(path))
             return cache.get(path);
 
-        String luaPath = path.replace(".", "/") + ".lua";
+        String luaPath = getLuaPath(path);
         for (String dir : dirs) {
             File file = new File(dir + luaPath);
             if (file.exists()) {
@@ -60,15 +67,28 @@ public class LuaFileLoader {
 
 
     /**
+     * path 对应的 lua 文件是否存在
+     */
+    public synchronized boolean luaFileExists(String path) {
+        String luaPath = getLuaPath(path);
+        for (String dir : dirs) {
+            if (new File(dir + luaPath).exists())
+                return true;
+        }
+        return false;
+    }
+
+
+    /**
      * 清除 lua 文件数据缓存
      *
      * @param path lua 文件相对路径，不含 ".lua" 后缀
      */
-    public void clearCache(String path) {
+    public synchronized void clearCache(String path) {
         cache.remove(path);
     }
 
-    public void clearAllCache() {
+    public synchronized void clearAllCache() {
         cache.clear();
     }
 
